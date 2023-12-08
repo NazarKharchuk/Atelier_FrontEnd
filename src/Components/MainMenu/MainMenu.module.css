@@ -1,0 +1,19 @@
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    padding-top: 30px;
+}
+
+.menuLink {
+    text-decoration: none;
+    margin: 15px;
+}
+
+.menuButton {
+    width: 250px;
+    height: 80px;
+    font-size: 20px;
+}
