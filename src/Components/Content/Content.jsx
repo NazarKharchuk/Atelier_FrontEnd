@@ -6,6 +6,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Client from "../ClientPages/Client/Client";
 import ClientCreate from "../ClientPages/ClientCreate/ClientCreate";
 import ClientUpdate from "../ClientPages/ClientUpdate/ClientUpdate";
+import WorksType from "../WorksTypePages/WorksType/WorksType";
+import WorksTypeCreate from "../WorksTypePages/WorksTypeCreate/WorksTypeCreate";
+import WorksTypeUpdate from "../WorksTypePages/WorksTypeUpdate/WorksTypeUpdate";
 
 const Content = (props) => {
     return (
@@ -16,6 +19,9 @@ const Content = (props) => {
                     <Route path="/clients" element={<Client />} />
                     <Route path="/clients/create" element={<ClientCreate />} />
                     <Route path="/clients/update/:id" element={<ClientUpdate />} />
+                    <Route path="/worksTypes" element={<WorksType />} />
+                    <Route path="/worksTypes/create" element={<WorksTypeCreate />} />
+                    <Route path="/worksTypes/update/:id" element={<WorksTypeUpdate />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
             </div>

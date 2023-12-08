@@ -1,0 +1,30 @@
+.worksTypeForm {
+    margin: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.formRow {
+    display: inline-grid;
+    grid-template-columns: 2fr 4fr;
+    align-items: flex-end;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.button {
+    margin-left: 20px;
+}
+
+.error {
+    color: red !important;
+}
