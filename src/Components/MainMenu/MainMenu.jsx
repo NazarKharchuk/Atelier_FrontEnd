@@ -30,17 +30,21 @@ const MainMenu = (props) => {
         </Button>
       </NavLink>
 
-      <NavLink to="/employees" className={s.menuLink}>
-        <Button variant="contained" color="primary" size="large" className={s.menuButton}>
-          Співробітники
-        </Button>
-      </NavLink>
+      {props.header.role === 1 ? (
+        <>
+          <NavLink to="/employees" className={s.menuLink}>
+            <Button variant="contained" color="primary" size="large" className={s.menuButton}>
+              Співробітники
+            </Button>
+          </NavLink>
 
-      <NavLink to="/worksTypes" className={s.menuLink}>
-        <Button variant="contained" color="primary" size="large" className={s.menuButton}>
-          Послуги
-        </Button>
-      </NavLink>
+          <NavLink to="/worksTypes" className={s.menuLink}>
+            <Button variant="contained" color="primary" size="large" className={s.menuButton}>
+              Послуги
+            </Button>
+          </NavLink>
+        </>
+      ) : null}
     </Box>
   );
 };

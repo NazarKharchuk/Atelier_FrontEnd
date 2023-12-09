@@ -18,6 +18,38 @@ const Login = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Вхід в акаунт");
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            axios
+                .get("https://localhost:44385/api/token/verify", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                })
+                .then((response) => {
+                    if (response.data.seccessfully === true) {
+                        console.log("Токен оновлено");
+                        props.setUserData(
+                            response.data.data.id,
+                            response.data.data.name,
+                            response.data.data.role
+                        );
+                        instance.defaults.headers.common[
+                            "Authorization"
+                        ] = `Bearer ${token}`;
+                        navigate("/menu", { replace: true });
+                    } else {
+                        localStorage.removeItem("token");
+                        console.log(response.data.message);
+                    }
+                })
+                .catch((error) => {
+                    localStorage.removeItem("token");
+                    console.error("Token verification error:", error);
+                });
+        }
     }, []);
 
     const validationSchema = Yup.object().shape({

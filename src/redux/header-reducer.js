@@ -29,6 +29,8 @@ const headerReducer = (state = initialState, action) => {
             };
         }
         case USER_LOGOUT: {
+            localStorage.removeItem("token");
+
             return {
                 ...state,
                 myId: null,

@@ -1,0 +1,13 @@
+.root {
+    flex-grow: 1;
+}
+
+.backButton {
+    margin-right: 2vh;
+}
+
+.title {
+    flex-grow: 1;
+}
+
+.userName {}

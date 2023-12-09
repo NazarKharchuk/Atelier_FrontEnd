@@ -24,29 +24,53 @@ import Login from "../LoginPages/Login";
 const Content = (props) => {
     return (
         <div className={s.content}>
-            <div>
+            {props.header.isAuth ? (
+                <div>
+                    {props.header.role === 1 ? (
+                        <Routes>
+                            <Route path="/menu" element={<MainMenu />} />
+                            <Route path="/clients" element={<Client />} />
+                            <Route path="/clients/create" element={<ClientCreate />} />
+                            <Route path="/clients/update/:id" element={<ClientUpdate />} />
+                            <Route path="/worksTypes" element={<WorksType />} />
+                            <Route path="/worksTypes/create" element={<WorksTypeCreate />} />
+                            <Route path="/worksTypes/update/:id" element={<WorksTypeUpdate />} />
+                            <Route path="/materials" element={<Material />} />
+                            <Route path="/materials/create" element={<MaterialCreate />} />
+                            <Route path="/materials/update/:id" element={<MaterialUpdate />} />
+                            <Route path="/materials/statistic" element={<MaterialsStatistic />} />
+                            <Route path="/orders" element={<Order />} />
+                            <Route path="/orders/create" element={<OrderCreate />} />
+                            <Route path="/orders/update/:id" element={<OrderUpdate />} />
+                            <Route path="/orders/statistic" element={<OrderStatistic />} />
+                            <Route path="/employees" element={<Employee />} />
+                            <Route path="/employees/create" element={<EmployeeCreate />} />
+                            <Route path="*" element={<Navigate to="/menu" replace />} />
+                        </Routes>
+                    ) : (
+                        <Routes>
+                            <Route path="/menu" element={<MainMenu />} />
+                            <Route path="/clients" element={<Client />} />
+                            <Route path="/clients/create" element={<ClientCreate />} />
+                            <Route path="/clients/update/:id" element={<ClientUpdate />} />
+                            <Route path="/orders" element={<Order />} />
+                            <Route path="/orders/create" element={<OrderCreate />} />
+                            <Route path="/orders/update/:id" element={<OrderUpdate />} />
+                            <Route path="/orders/statistic" element={<OrderStatistic />} />
+                            <Route path="/materials" element={<Material />} />
+                            <Route path="/materials/create" element={<MaterialCreate />} />
+                            <Route path="/materials/update/:id" element={<MaterialUpdate />} />
+                            <Route path="/materials/statistic" element={<MaterialsStatistic />} />
+                            <Route path="*" element={<Navigate to="/menu" replace />} />
+                        </Routes>
+                    )}
+                </div>
+            ) : (
                 <Routes>
-                    <Route path="/menu" element={<MainMenu />} />
-                    <Route path="/clients" element={<Client />} />
-                    <Route path="/clients/create" element={<ClientCreate />} />
-                    <Route path="/clients/update/:id" element={<ClientUpdate />} />
-                    <Route path="/worksTypes" element={<WorksType />} />
-                    <Route path="/worksTypes/create" element={<WorksTypeCreate />} />
-                    <Route path="/worksTypes/update/:id" element={<WorksTypeUpdate />} />
-                    <Route path="/materials" element={<Material />} />
-                    <Route path="/materials/create" element={<MaterialCreate />} />
-                    <Route path="/materials/update/:id" element={<MaterialUpdate />} />
-                    <Route path="/materials/statistic" element={<MaterialsStatistic />} />
-                    <Route path="/orders" element={<Order />} />
-                    <Route path="/orders/create" element={<OrderCreate />} />
-                    <Route path="/orders/update/:id" element={<OrderUpdate />} />
-                    <Route path="/orders/statistic" element={<OrderStatistic />} />
-                    <Route path="/employees" element={<Employee />} />
-                    <Route path="/employees/create" element={<EmployeeCreate />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="*" element={<Navigate to="/menu" replace />} />
+                    <Route path="*" element={<Navigate to="/login" replace />} />
                 </Routes>
-            </div>
+            )}
         </div>
     );
 };
