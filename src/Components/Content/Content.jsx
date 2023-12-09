@@ -19,6 +19,7 @@ import OrderUpdate from "../OrderPages/OrderUpdate/OrderUpdate";
 import OrderStatistic from "../OrderPages/OrderStatistic/OrderStatistic";
 import Employee from "../EmployeePages/Employee/Employee";
 import EmployeeCreate from "../EmployeePages/EmployeeCreate/EmployeeCreate";
+import Login from "../LoginPages/Login";
 
 const Content = (props) => {
     return (
@@ -42,6 +43,7 @@ const Content = (props) => {
                     <Route path="/orders/statistic" element={<OrderStatistic />} />
                     <Route path="/employees" element={<Employee />} />
                     <Route path="/employees/create" element={<EmployeeCreate />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
             </div>
