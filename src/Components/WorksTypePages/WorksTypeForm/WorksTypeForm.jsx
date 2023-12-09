@@ -32,7 +32,7 @@ const WorksTypeForm = (props) => {
     };
 
     return (
-        <div className={s.materialForm}>
+        <div className={s.worksTypeForm}>
             <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}

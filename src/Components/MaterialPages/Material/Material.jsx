@@ -1,47 +1,45 @@
 import React, { useState, useEffect } from "react";
-import { clientAPI } from "../../../API/client-api";
-import s from "./Client.module.css";
+import { materialAPI } from "../../../API/material-api";
+import s from "./Material.module.css";
 import { Button, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { LinearProgress, IconButton, Snackbar, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
+import { LinearProgress, IconButton, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { changeHeaderTitle } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const columns = [
     {
-        id: "clientId",
-        label: "ClientId",
-        minWidth: 50,
+        id: "materialId",
+        label: "MaterialId",
+        minWidth: 100,
         format: (value) => value.toLocaleString("en-US"),
     },
     {
-        id: "firstName",
-        label: "FirstName",
+        id: "name",
+        label: "Name",
         minWidth: 100,
     },
     {
-        id: "lastName",
-        label: "LastName",
+        id: "quantity",
+        label: "Quantity",
         minWidth: 100,
+        format: (value) => value.toLocaleString("en-US"),
     },
     {
-        id: "middleName",
-        label: "MiddleName",
+        id: "reserve",
+        label: "Reserve",
         minWidth: 100,
+        format: (value) => value.toLocaleString("en-US"),
     },
     {
-        id: "phoneNumber",
-        label: "PhoneNumber",
-        minWidth: 100,
-    },
-    {
-        id: "address",
-        label: "Address",
+        id: "cost",
+        label: "Cost",
         minWidth: 150,
+        format: (value) => value.toLocaleString("en-US"),
     },
 ];
 
-const Client = (props) => {
+const Material = (props) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [data, setData] = useState([]);
@@ -49,11 +47,9 @@ const Client = (props) => {
     const [count, setCount] = useState(0);
     const [error, setError] = useState(false);
     const [errorMes, setErrorMes] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [name, setName] = useState("");
     const [sort, setSort] = useState("");
-    const [listFirstNames, setListFirstNames] = useState([]);
-    const [listLastNames, setListLastNames] = useState([]);
+    const [listNames, setListNames] = useState([]);
     const navigate = useNavigate();
 
     const handleChangePage = (event, newPage) => {
@@ -67,13 +63,12 @@ const Client = (props) => {
         setLoaded(false);
     };
 
-    const fetchClientsData = async () => {
+    const fetchMaterialsData = async () => {
         setLoaded(false);
-        const result = await clientAPI.clients(
+        const result = await materialAPI.materials(
             page + 1,
             rowsPerPage,
-            firstName,
-            lastName,
+            name,
             sort
         );
         if (result.seccessfully === true) {
@@ -86,20 +81,10 @@ const Client = (props) => {
         }
     };
 
-    const fetchFirstNamesData = async () => {
-        const result = await clientAPI.clientsFirstNames();
+    const fetchNamesData = async () => {
+        const result = await materialAPI.materialsNames();
         if (result.seccessfully === true) {
-            setListFirstNames(result.data);
-        } else {
-            setError(true);
-            setErrorMes(result.data.message);
-        }
-    };
-
-    const fetchLastNamesData = async () => {
-        const result = await clientAPI.clientsLastNames();
-        if (result.seccessfully === true) {
-            setListLastNames(result.data);
+            setListNames(result.data);
         } else {
             setError(true);
             setErrorMes(result.data.message);
@@ -107,42 +92,50 @@ const Client = (props) => {
     };
 
     useEffect(() => {
-        props.changeHeaderTitle("Список клієнтів");
-        fetchClientsData();
-        fetchFirstNamesData();
-        fetchLastNamesData();
+        props.changeHeaderTitle("Список матеріалів");
+        fetchMaterialsData();
+        fetchNamesData();
     }, []);
 
     useEffect(() => {
         setLoaded(false);
-        fetchClientsData();
+        fetchMaterialsData();
     }, [page, rowsPerPage]);
 
-    const handleEditRow = (clientId) => {
-        console.log(clientId);
-        navigate("/clients/update/" + clientId, { replace: true });
+    const handleEditRow = (materialId) => {
+        console.log(materialId);
+        navigate("/materials/update/" + materialId, { replace: true });
     };
 
     const handleCreateButton = () => {
-        navigate("/clients/create", { replace: true });
+        navigate("/materials/create", { replace: true });
     };
 
     const handleFilterButton = (event) => {
         setPage(0);
         setLoaded(false);
-        fetchClientsData();
+        fetchMaterialsData();
     };
 
-    const handleChangeFirstName = (event) => {
-        setFirstName(event.target.value);
-    };
-
-    const handleChangeLastName = (event) => {
-        setLastName(event.target.value);
+    const handleChangeName = (event) => {
+        setName(event.target.value);
     };
 
     const handleChangeSort = (event) => {
         setSort(event.target.value);
+    };
+
+    const ExportFile = async () => {
+        var data = await materialAPI.materialsExportData();
+        const utf8BOM = '\uFEFF';
+        const csvContent = `${utf8BOM}${data}`;
+        const downloadUrl = window.URL.createObjectURL(new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }));
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.setAttribute("download", "Materials.csv");
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
     };
 
     if (error) {
@@ -159,39 +152,23 @@ const Client = (props) => {
         <div>
             <div className={s.container}>
                 <FormControl>
-                    <InputLabel id="first-name-select-helper-label">Ім'я</InputLabel>
+                    <InputLabel id="name-select-helper-label">Назва матеріалу</InputLabel>
                     <Select
-                        labelId="first-name-select-helper-label"
-                        id="first-name-select-helper"
-                        value={firstName}
-                        onChange={handleChangeFirstName}
+                        labelId="name-select-helper-label"
+                        id="name-select-helper"
+                        value={name}
+                        onChange={handleChangeName}
                     >
                         <MenuItem key={""} value="">
                             <em>-</em>
                         </MenuItem>
-                        {listFirstNames.map((item) => (
-                            <MenuItem key={item} value={item}>{item}</MenuItem>
+                        {listNames.map((item) => (
+                            <MenuItem key={item} value={item}>
+                                {item}
+                            </MenuItem>
                         ))}
                     </Select>
-                    <FormHelperText>Пошук за ім'ям</FormHelperText>
-                </FormControl>
-
-                <FormControl>
-                    <InputLabel id="last-name-select-helper-label">Прізвище</InputLabel>
-                    <Select
-                        labelId="last-name-select-helper-label"
-                        id="last-name-select-helper"
-                        value={lastName}
-                        onChange={handleChangeLastName}
-                    >
-                        <MenuItem key={""} value="">
-                            <em>-</em>
-                        </MenuItem>
-                        {listLastNames.map((item) => (
-                            <MenuItem key={item} value={item}>{item}</MenuItem>
-                        ))}
-                    </Select>
-                    <FormHelperText>Пошук за прізвищем</FormHelperText>
+                    <FormHelperText>Пошук за назвою матеріалу</FormHelperText>
                 </FormControl>
 
                 <FormControl>
@@ -202,7 +179,7 @@ const Client = (props) => {
                         value={sort}
                         onChange={handleChangeSort}
                     >
-                        <MenuItem value="">
+                        <MenuItem key={""} value="">
                             <em>-</em>
                         </MenuItem>
                         <MenuItem key={1} value="desc">Спаданням</MenuItem>
@@ -238,7 +215,12 @@ const Client = (props) => {
                         <TableBody>
                             {data.map((row) => {
                                 return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.clientId}>
+                                    <TableRow
+                                        hover
+                                        role="checkbox"
+                                        tabIndex={-1}
+                                        key={row.materialId}
+                                    >
                                         {columns.map((column) => {
                                             const value = row[column.id];
                                             return (
@@ -251,7 +233,7 @@ const Client = (props) => {
                                         })}
                                         <TableCell>
                                             <IconButton
-                                                onClick={() => handleEditRow(row.clientId)}
+                                                onClick={() => handleEditRow(row.materialId)}
                                                 color="inherit"
                                             >
                                                 <span className="material-icons md-dark">edit</span>
@@ -274,13 +256,29 @@ const Client = (props) => {
                 />
             </Paper>
             <div className={s.buttons}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleCreateButton}
-                >
-                    Додати
-                </Button>
+                <div>
+                    <Button variant="contained" color="primary" onClick={ExportFile}>
+                        Імпортувати
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                            navigate("/materials/statistic");
+                        }}
+                    >
+                        Статистика
+                    </Button>
+                </div>
+                <div>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={handleCreateButton}
+                    >
+                        Додати
+                    </Button>
+                </div>
             </div>
         </div>
     );
@@ -292,4 +290,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(Client);
+export default connect(mapStateToProps, { changeHeaderTitle })(Material);

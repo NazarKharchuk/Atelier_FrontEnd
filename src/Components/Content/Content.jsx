@@ -9,6 +9,10 @@ import ClientUpdate from "../ClientPages/ClientUpdate/ClientUpdate";
 import WorksType from "../WorksTypePages/WorksType/WorksType";
 import WorksTypeCreate from "../WorksTypePages/WorksTypeCreate/WorksTypeCreate";
 import WorksTypeUpdate from "../WorksTypePages/WorksTypeUpdate/WorksTypeUpdate";
+import Material from "../MaterialPages/Material/Material";
+import MaterialCreate from "../MaterialPages/MaterialCreate/MaterialCreate";
+import MaterialUpdate from "../MaterialPages/MaterialUpdate/MaterialUpdate";
+import MaterialsStatistic from "../MaterialPages/MaterialsStatistic/MaterialsStatistic";
 
 const Content = (props) => {
     return (
@@ -22,6 +26,10 @@ const Content = (props) => {
                     <Route path="/worksTypes" element={<WorksType />} />
                     <Route path="/worksTypes/create" element={<WorksTypeCreate />} />
                     <Route path="/worksTypes/update/:id" element={<WorksTypeUpdate />} />
+                    <Route path="/materials" element={<Material />} />
+                    <Route path="/materials/create" element={<MaterialCreate />} />
+                    <Route path="/materials/update/:id" element={<MaterialUpdate />} />
+                    <Route path="/materials/statistic" element={<MaterialsStatistic />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
             </div>
