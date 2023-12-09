@@ -77,7 +77,7 @@ const Material = (props) => {
             setLoaded(true);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 
@@ -87,7 +87,7 @@ const Material = (props) => {
             setListNames(result.data);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 

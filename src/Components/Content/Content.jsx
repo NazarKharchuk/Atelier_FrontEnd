@@ -13,6 +13,10 @@ import Material from "../MaterialPages/Material/Material";
 import MaterialCreate from "../MaterialPages/MaterialCreate/MaterialCreate";
 import MaterialUpdate from "../MaterialPages/MaterialUpdate/MaterialUpdate";
 import MaterialsStatistic from "../MaterialPages/MaterialsStatistic/MaterialsStatistic";
+import Order from "../OrderPages/Order/Order";
+import OrderCreate from "../OrderPages/OrderCreate/OrderCreate";
+import OrderUpdate from "../OrderPages/OrderUpdate/OrderUpdate";
+import OrderStatistic from "../OrderPages/OrderStatistic/OrderStatistic";
 
 const Content = (props) => {
     return (
@@ -30,6 +34,10 @@ const Content = (props) => {
                     <Route path="/materials/create" element={<MaterialCreate />} />
                     <Route path="/materials/update/:id" element={<MaterialUpdate />} />
                     <Route path="/materials/statistic" element={<MaterialsStatistic />} />
+                    <Route path="/orders" element={<Order />} />
+                    <Route path="/orders/create" element={<OrderCreate />} />
+                    <Route path="/orders/update/:id" element={<OrderUpdate />} />
+                    <Route path="/orders/statistic" element={<OrderStatistic />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
             </div>

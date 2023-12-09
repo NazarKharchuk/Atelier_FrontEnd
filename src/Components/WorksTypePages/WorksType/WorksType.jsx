@@ -57,7 +57,7 @@ const WorksType = (props) => {
             setLoaded(true);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 

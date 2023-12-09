@@ -20,12 +20,16 @@ const WorksTypeUpdete = (props) => {
         props.changeHeaderTitle("Редагування послуги");
         async function loadData() {
             const result = await worksTypeAPI.worksType(params.id);
-            setInitialValues((initialValues) => ({
-                ...initialValues,
-                name: result.data.name,
-                cost: result.data.cost,
-            }));
-            setLoaded(true);
+            if (result.seccessfully === true) {
+                setInitialValues((initialValues) => ({
+                    ...initialValues,
+                    name: result.data.name,
+                    cost: result.data.cost,
+                }));
+                setLoaded(true);
+            } else {
+                console.log(result.message);
+            }
         }
         loadData();
     }, []);

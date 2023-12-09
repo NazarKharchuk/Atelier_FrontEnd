@@ -33,7 +33,7 @@ const MaterialUpdete = (props) => {
                 setLoaded(true);
             }
             else {
-                console.log(result.data.message);
+                console.log(result.message);
             }
         }
         loadData();

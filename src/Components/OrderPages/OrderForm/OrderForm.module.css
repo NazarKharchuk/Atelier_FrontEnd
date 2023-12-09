@@ -1,0 +1,62 @@
+.orderForm {
+    margin: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.formRow {
+    display: inline-grid;
+    grid-template-columns: 2fr 4fr;
+    align-items: flex-end;
+    margin: 10px;
+}
+
+.buttonsErrors {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.button {
+    margin-left: 20px;
+    min-height: 50px;
+    min-width: 100px;
+}
+
+.materialForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.materialFormCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 10px;
+    margin-left: 20px;
+}
+
+.materialButton {
+    display: flex;
+    justify-content: center;
+    margin: 25px;
+}
+
+.error {
+    color: red !important;
+}

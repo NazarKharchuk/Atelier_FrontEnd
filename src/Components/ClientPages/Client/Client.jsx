@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { clientAPI } from "../../../API/client-api";
 import s from "./Client.module.css";
 import { Button, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
-import { LinearProgress, IconButton, Snackbar, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
+import { LinearProgress, IconButton, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { changeHeaderTitle } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
@@ -82,7 +82,7 @@ const Client = (props) => {
             setLoaded(true);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 
@@ -92,7 +92,7 @@ const Client = (props) => {
             setListFirstNames(result.data);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 
@@ -102,7 +102,7 @@ const Client = (props) => {
             setListLastNames(result.data);
         } else {
             setError(true);
-            setErrorMes(result.data.message);
+            setErrorMes(result.message);
         }
     };
 
