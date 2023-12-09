@@ -17,6 +17,8 @@ import Order from "../OrderPages/Order/Order";
 import OrderCreate from "../OrderPages/OrderCreate/OrderCreate";
 import OrderUpdate from "../OrderPages/OrderUpdate/OrderUpdate";
 import OrderStatistic from "../OrderPages/OrderStatistic/OrderStatistic";
+import Employee from "../EmployeePages/Employee/Employee";
+import EmployeeCreate from "../EmployeePages/EmployeeCreate/EmployeeCreate";
 
 const Content = (props) => {
     return (
@@ -38,6 +40,8 @@ const Content = (props) => {
                     <Route path="/orders/create" element={<OrderCreate />} />
                     <Route path="/orders/update/:id" element={<OrderUpdate />} />
                     <Route path="/orders/statistic" element={<OrderStatistic />} />
+                    <Route path="/employees" element={<Employee />} />
+                    <Route path="/employees/create" element={<EmployeeCreate />} />
                     <Route path="*" element={<Navigate to="/menu" replace />} />
                 </Routes>
             </div>
