@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { materialAPI } from "../../../API/material-api";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { Box, LinearProgress, Input, InputLabel, MenuItem, FormControl, Select, Chip, Button } from "@mui/material";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 import s from "./MaterialsStatistic.module.css";
 import { useTheme } from '@mui/material/styles';
@@ -52,6 +52,7 @@ const MaterialsStatistic = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Статистика: матеріали");
+        props.changeBackLink("/materials");
         async function loadData() {
             const result = await materialAPI.materialsSelectData();
             if (result.seccessfully === true) {
@@ -154,6 +155,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(
-    MaterialsStatistic
-);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(MaterialsStatistic);

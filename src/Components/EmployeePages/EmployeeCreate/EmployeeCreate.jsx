@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { employeeAPI } from "../../../API/employee-api";
 import EmployeeForm from "../EmployeeForm/EmployeeForm";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const EmployeeCreate = (props) => {
@@ -18,6 +18,7 @@ const EmployeeCreate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Додавання нового працівника");
+        props.changeBackLink("/employees");
     }, []);
 
     const fetchCreateEmployee = async (employee) => {
@@ -41,4 +42,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(EmployeeCreate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(EmployeeCreate);

@@ -4,7 +4,7 @@ import s from "./Client.module.css";
 import { Button, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { LinearProgress, IconButton, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const columns = [
@@ -108,6 +108,7 @@ const Client = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Список клієнтів");
+        props.changeBackLink("/menu");
         fetchClientsData();
         fetchFirstNamesData();
         fetchLastNamesData();
@@ -292,4 +293,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(Client);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(Client);

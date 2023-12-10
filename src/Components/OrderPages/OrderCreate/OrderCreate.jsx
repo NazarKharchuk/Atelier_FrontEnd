@@ -6,7 +6,7 @@ import { worksTypeAPI } from "../../../API/worksType-api";
 import { employeeAPI } from "../../../API/employee-api";
 import { orderAPI } from "../../../API/order-api";
 import LinearProgress from "@mui/material/LinearProgress";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const OrderCreate = (props) => {
@@ -119,6 +119,7 @@ const OrderCreate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Додавання нового замовлення");
+        props.changeBackLink("/orders");
         async function loadData() {
             const cResult = await clientAPI.clientsSelectData();
             const wResult = await worksTypeAPI.worksTypesSelectData();
@@ -159,4 +160,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(OrderCreate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(OrderCreate);

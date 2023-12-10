@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { materialAPI } from "../../../API/material-api";
 import MaterialForm from "../MaterialForm/MaterialForm";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const MaterialCreate = (props) => {
@@ -15,6 +15,7 @@ const MaterialCreate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Додавання нового матеріалу");
+        props.changeBackLink("/materials");
     }, []);
 
     const fetchMaterialsData = async (material) => {
@@ -39,4 +40,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(MaterialCreate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(MaterialCreate);

@@ -4,7 +4,7 @@ import s from "./WorksType.module.css";
 import { Table, Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { Button, LinearProgress, IconButton, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const columns = [
@@ -63,6 +63,7 @@ const WorksType = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Список послуг");
+        props.changeBackLink("/menu");
         fetchWorksTypesData();
     }, []);
 
@@ -164,4 +165,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(WorksType);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(WorksType);

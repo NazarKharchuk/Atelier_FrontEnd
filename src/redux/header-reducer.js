@@ -1,6 +1,7 @@
 const CHANGE_HEADER_TITLE = "CHANGE_HEADER_TITLE";
 const SET_USER_DATA = "SET_USER_DATA";
 const USER_LOGOUT = "USER_LOGOUT";
+const CHANGE_BACK_LINK = "CHANGE_BACK_LINK";
 
 let initialState = {
     headerTitle: "Title",
@@ -19,6 +20,12 @@ const headerReducer = (state = initialState, action) => {
                 headerTitle: action.title,
             };
         }
+        case CHANGE_BACK_LINK: {
+            return {
+                ...state,
+                backLink: action.link,
+            };
+        }
         case SET_USER_DATA: {
             return {
                 ...state,
@@ -26,6 +33,7 @@ const headerReducer = (state = initialState, action) => {
                 userName: action.name,
                 role: action.role,
                 isAuth: true,
+                backLink: "/menu",
             };
         }
         case USER_LOGOUT: {
@@ -47,6 +55,11 @@ const headerReducer = (state = initialState, action) => {
 export const changeHeaderTitle = (title) => ({
     type: CHANGE_HEADER_TITLE,
     title: title,
+});
+
+export const changeBackLink = (link) => ({
+    type: CHANGE_BACK_LINK,
+    link: link,
 });
 
 export const setUserData = (id, name, role) => ({

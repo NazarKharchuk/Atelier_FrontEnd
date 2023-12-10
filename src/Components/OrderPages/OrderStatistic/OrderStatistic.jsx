@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, } from "recharts";
 import { InputLabel, MenuItem, FormControl, Select, Button, LinearProgress } from "@mui/material";
 import { orderAPI } from "../../../API/order-api";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const OrdersStatistic = (props) => {
@@ -39,6 +39,7 @@ const OrdersStatistic = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Статистика: замовлення");
+        props.changeBackLink("/orders");
         async function loadData() {
             const result = await orderAPI.getMinMaxYear();
             if (result.seccessfully === true) {
@@ -124,4 +125,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(OrdersStatistic);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(OrdersStatistic);

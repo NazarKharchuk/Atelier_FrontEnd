@@ -3,7 +3,7 @@ import { worksTypeAPI } from "../../../API/worksType-api";
 import WorksTypeForm from "../WorksTypeForm/WorksTypeForm";
 import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const WorksTypeUpdete = (props) => {
@@ -18,6 +18,7 @@ const WorksTypeUpdete = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Редагування послуги");
+        props.changeBackLink("/worksTypes");
         async function loadData() {
             const result = await worksTypeAPI.worksType(params.id);
             if (result.seccessfully === true) {
@@ -60,4 +61,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(WorksTypeUpdete);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(WorksTypeUpdete);

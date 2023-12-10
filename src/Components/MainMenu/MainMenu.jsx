@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import s from "./MainMenu.module.css";
 import { NavLink } from "react-router-dom";
-import { changeHeaderTitle } from "../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../redux/header-reducer";
 import { connect } from "react-redux";
 import { Button, Box } from "@mui/material";
 
 const MainMenu = (props) => {
   useEffect(() => {
     props.changeHeaderTitle("Меню");
+    props.changeBackLink("/menu");
   }, []);
 
   return (
@@ -55,4 +56,4 @@ let mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(MainMenu);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(MainMenu);

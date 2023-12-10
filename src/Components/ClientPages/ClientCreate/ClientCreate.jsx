@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { clientAPI } from "../../../API/client-api";
 import ClientForm from "../ClientForm/ClientForm";
 import s from "./ClientCreate.module.css";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const ClientCreate = (props) => {
@@ -17,6 +17,7 @@ const ClientCreate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Додавання нового клієнта");
+        props.changeBackLink("/clients");
     }, []);
 
     const fetchClientsData = async (client) => {
@@ -40,4 +41,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(ClientCreate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(ClientCreate);

@@ -4,7 +4,7 @@ import s from "./Material.module.css";
 import { Button, Table, Paper, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from "@mui/material";
 import { LinearProgress, IconButton, Alert, InputLabel, MenuItem, FormHelperText, FormControl, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const columns = [
@@ -93,6 +93,7 @@ const Material = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Список матеріалів");
+        props.changeBackLink("/menu");
         fetchMaterialsData();
         fetchNamesData();
     }, []);
@@ -290,4 +291,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(Material);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(Material);

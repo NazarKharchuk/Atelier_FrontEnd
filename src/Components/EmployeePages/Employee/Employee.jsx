@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { employeeAPI } from "../../../API/employee-api";
 import s from "./Employee.module.css";
 import { Button, Table, Paper, TableBody, TableCell, TableContainer, TableHead } from "@mui/material";
-import { TablePagination, TableRow, LinearProgress, IconButton, Alert } from "@mui/material";
+import { TablePagination, TableRow, LinearProgress, Alert } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const columns = [
@@ -77,6 +77,7 @@ const Employee = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Список працівників");
+        props.changeBackLink("/menu");
         fetchEmployeesData();
     }, []);
 
@@ -165,4 +166,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(Employee);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(Employee);

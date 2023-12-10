@@ -7,7 +7,7 @@ import { employeeAPI } from "../../../API/employee-api";
 import { orderAPI } from "../../../API/order-api";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useParams } from "react-router-dom";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const OrderUpdate = (props) => {
@@ -162,6 +162,7 @@ const OrderUpdate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Редагування замовлення");
+        props.changeBackLink("/orders");
         async function loadData() {
             const cResult = await clientAPI.clientsSelectData();
             const wResult = await worksTypeAPI.worksTypesSelectData();
@@ -230,4 +231,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(OrderUpdate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(OrderUpdate);

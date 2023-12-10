@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import WorksTypeForm from "../WorksTypeForm/WorksTypeForm";
 import { worksTypeAPI } from "../../../API/worksType-api";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const WorksTypeCreate = (props) => {
@@ -13,6 +13,7 @@ const WorksTypeCreate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Додавання нової послуги");
+        props.changeBackLink("/worksTypes");
     }, []);
 
     const fetchWorksTypesData = async (worksType) => {
@@ -37,4 +38,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(WorksTypeCreate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(WorksTypeCreate);

@@ -3,7 +3,7 @@ import { clientAPI } from "../../../API/client-api";
 import ClientForm from "../ClientForm/ClientForm";
 import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const ClientUpdate = (props) => {
@@ -21,6 +21,7 @@ const ClientUpdate = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Редагування клієнта");
+        props.changeBackLink("/clients");
         async function loadData() {
             const result = await clientAPI.client(params.id);
             setInitialValues((initialValues) => ({
@@ -61,4 +62,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(ClientUpdate);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(ClientUpdate);

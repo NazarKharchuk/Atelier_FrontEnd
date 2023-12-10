@@ -3,7 +3,7 @@ import { materialAPI } from "../../../API/material-api";
 import MaterialForm from "../MaterialForm/MaterialForm";
 import { useParams } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
-import { changeHeaderTitle } from "../../../redux/header-reducer";
+import { changeHeaderTitle, changeBackLink } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 const MaterialUpdete = (props) => {
@@ -20,6 +20,7 @@ const MaterialUpdete = (props) => {
 
     useEffect(() => {
         props.changeHeaderTitle("Редагування матеріалу");
+        props.changeBackLink("/materials");
         async function loadData() {
             const result = await materialAPI.material(params.id);
             if (result.seccessfully === true) {
@@ -65,4 +66,4 @@ let mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps, { changeHeaderTitle })(MaterialUpdete);
+export default connect(mapStateToProps, { changeHeaderTitle, changeBackLink })(MaterialUpdete);
