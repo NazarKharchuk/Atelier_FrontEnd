@@ -42,6 +42,12 @@ export const orderAPI = {
         });
         return res.data;
     },
+    async updateOrderStatus(id, new_status) {
+        const res = await instance.put(`orders/` + id + `/status`,
+            new_status,
+            { headers: { 'Content-Type': 'application/json' } });
+        return res.data;
+    },
     async order(id) {
         const res = await instance.get(`orders/` + id);
         return res.data;

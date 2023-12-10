@@ -12,7 +12,7 @@ import { connect } from "react-redux";
 const OrderCreate = (props) => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("0");
     const [worksTypeId, setWorksTypeId] = useState("");
     const [employeeId, setEmployeeId] = useState("");
     const [clientId, setClientId] = useState("");
@@ -38,37 +38,30 @@ const OrderCreate = (props) => {
     };
 
     const handleChangeStartDate = (event) => {
-        console.log("start date - " + event.target.value);
         setStartDate(event.target.value);
     };
 
     const handleChangeEndDate = (event) => {
-        console.log("end date - " + event.target.value);
         setEndDate(event.target.value);
     };
 
     const handleChangeStatus = (event) => {
-        console.log("status - " + event.target.value);
-        setStatus(event.target.value);
+        console.log("Створити замовленя можна лише зі статусом \"Нове\"");
     };
 
     const handleChangeWorksTypeId = (event) => {
-        console.log("works type - " + event.target.value);
         setWorksTypeId(event.target.value);
     };
 
     const handleChangeEmployeeId = (event) => {
-        console.log("employee - " + event.target.value);
         setEmployeeId(event.target.value);
     };
 
     const handleChangeClientId = (event) => {
-        console.log("client - " + event.target.value);
         setClientId(event.target.value);
     };
 
     const handleCreateMaterial = (value) => {
-        console.log("create material - " + value);
         setMaterials([
             ...materials,
             {
@@ -80,7 +73,6 @@ const OrderCreate = (props) => {
                 count: value.count,
             },
         ]);
-        console.log(materials);
         return { seccessfully: true, message: "" };
     };
 
@@ -103,7 +95,6 @@ const OrderCreate = (props) => {
     };
 
     const handleOrder = async () => {
-        console.log("create order; ");
         const res = await fetchOrderCreate();
         return res;
     };

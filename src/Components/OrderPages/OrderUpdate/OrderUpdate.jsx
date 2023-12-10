@@ -41,39 +41,32 @@ const OrderUpdate = (props) => {
     };
 
     const handleChangeStartDate = (event) => {
-        console.log("start date - " + event.target.value);
         setStartDate(event.target.value);
     };
 
     const handleChangeEndDate = (event) => {
-        console.log("end date - " + event.target.value);
         setEndDate(event.target.value);
     };
 
     const handleChangeStatus = (event) => {
-        console.log("status - " + event.target.value);
         if (event.target.value >= status) {
             setStatus(event.target.value);
         }
     };
 
     const handleChangeWorksTypeId = (event) => {
-        console.log("works type - " + event.target.value);
         setWorksTypeId(event.target.value);
     };
 
     const handleChangeEmployeeId = (event) => {
-        console.log("employee - " + event.target.value);
         setEmployeeId(event.target.value);
     };
 
     const handleChangeClientId = (event) => {
-        console.log("client - " + event.target.value);
         setClientId(event.target.value);
     };
 
     const handleCreateMaterial = async (value) => {
-        console.log("create material - " + value);
         var new_material = {
             materialId: parseInt(value.materialId),
             count: parseFloat(value.count),
@@ -85,21 +78,19 @@ const OrderUpdate = (props) => {
             listMaterials: mResult.data,
         }));
         var o_materials = await orderAPI.orderMaterials(params.id);
-        console.log(o_materials);
         var fullMaterialData = [];
-        lists.listMaterials.forEach((element) => {
-            o_materials.data.forEach((new_m) => {
-                if (new_m.materialId === element.materialId) {
-                    fullMaterialData.push({
-                        materialId: element.materialId,
-                        name: element.name,
-                        quantity: element.quantity,
-                        cost: element.cost,
-                        reserve: element.reserve,
-                        count: new_m.count,
-                    });
-                }
-            });
+        o_materials.data.forEach((new_m) => {
+            const element = mResult.data.find((e) => e.materialId === new_m.materialId);
+            if (element) {
+                fullMaterialData.push({
+                    materialId: element.materialId,
+                    name: element.name,
+                    quantity: element.quantity,
+                    cost: element.cost,
+                    reserve: element.reserve,
+                    count: new_m.count,
+                });
+            }
         });
         setMaterials(fullMaterialData);
         return result;
@@ -119,7 +110,6 @@ const OrderUpdate = (props) => {
     };
 
     const handleOrder = async () => {
-        console.log("update order; ");
         const res = await fetchOrderUpdate();
         const result = await orderAPI.order(params.id);
         setStartDate(result.data.receivingDate.split("T")[0]);
@@ -141,19 +131,18 @@ const OrderUpdate = (props) => {
         var o_materials = await orderAPI.orderMaterials(params.id);
         console.log(o_materials);
         var fullMaterialData = [];
-        lists.listMaterials.forEach((element) => {
-            o_materials.data.forEach((new_m) => {
-                if (new_m.materialId === element.materialId) {
-                    fullMaterialData.push({
-                        materialId: element.materialId,
-                        name: element.name,
-                        quantity: element.quantity,
-                        cost: element.cost,
-                        reserve: element.reserve,
-                        count: new_m.count,
-                    });
-                }
-            });
+        o_materials.data.forEach((new_m) => {
+            const element = lists.listMaterials.find((e) => e.materialId === new_m.materialId);
+            if (element) {
+                fullMaterialData.push({
+                    materialId: element.materialId,
+                    name: element.name,
+                    quantity: element.quantity,
+                    cost: element.cost,
+                    reserve: element.reserve,
+                    count: new_m.count,
+                });
+            }
         });
         setMaterials(fullMaterialData);
     };

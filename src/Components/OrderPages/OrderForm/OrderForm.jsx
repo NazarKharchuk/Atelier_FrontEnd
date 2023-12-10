@@ -23,7 +23,6 @@ const OrderForm = (props) => {
 
     const handleChangeMaterialName = (event) => {
         setNewMaterialMessage("");
-        console.log("new material - " + event.target.value);
         if (event.target.value !== "") {
             const material = lists.listMaterials.filter(
                 (x) => x.materialId === event.target.value
@@ -45,7 +44,6 @@ const OrderForm = (props) => {
     const handleChangeMaterialCount = (event) => {
         setNewMaterialMessage("");
         setNewMaterialCount(event.target.value);
-        console.log("new material count - " + event.target.value);
         if (event.target.value <= 0) {
             setNewMaterialMessage("Невалідна кількість матеріалу");
         }
@@ -59,7 +57,6 @@ const OrderForm = (props) => {
             alert("Не всі обов'язкові поля заповнені");
         } else {
             const material = materials.filter((x) => x.materialId === newMaterialId);
-            console.log(material.length);
             if (material.length < 1) {
                 setmaterialLoading(true);
                 const materialData = lists.listMaterials.filter(
@@ -104,7 +101,6 @@ const OrderForm = (props) => {
             alert("Не всі обов'язкові поля заповнені");
         } else {
             const d = new Date();
-            debugger;
             if (
                 Date.parse(initialValues.startDate) >
                 Date.parse(initialValues.endDate) ||
@@ -117,8 +113,8 @@ const OrderForm = (props) => {
                 alert("Некоректна кінцева дата");
                 return;
             }
-            if (type!=="update" && initialValues.status === "2") {
-                alert("Не можна створитти завершене замовлення");
+            if (type !== "update" && initialValues.status != "0") {
+                alert("Нове замовленя може мати лише статус \"Нове\"");
                 return;
             }
             setOrderLoading(true);
@@ -182,6 +178,7 @@ const OrderForm = (props) => {
                             id="status-select-helper"
                             value={initialValues.status}
                             onChange={handles.handleChangeStatus}
+                            disabled={type === "update"}
                         >
                             <MenuItem key={""} value="">
                                 <em>-</em>

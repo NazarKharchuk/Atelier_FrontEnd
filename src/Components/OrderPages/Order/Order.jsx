@@ -11,8 +11,9 @@ import { changeHeaderTitle } from "../../../redux/header-reducer";
 import { connect } from "react-redux";
 
 function Row(props) {
-    const { row } = props;
+    const { row, reloadOrdersData } = props;
     const [open, setOpen] = useState(false);
+    const [newStatus, setNewStatus] = useState(row.status);
     const navigate = useNavigate();
 
     const handleEditRow = (orderId) => {
@@ -20,6 +21,37 @@ function Row(props) {
     };
 
     const lookup = { 0: "Нове", 1: "Виконується", 2: "Завершено" };
+
+    const availableStatuses = Object.keys(lookup).filter(
+        (status) => status >= row.status
+    );
+
+    const showSaveButton = row.status !== 2 && (newStatus > row.status);
+    const showStatusSelect = row.status !== 2;
+
+    const handleStatusChange = (event) => {
+        if (event.target.value >= row.status) {
+            setNewStatus(event.target.value);
+        }
+        else {
+            console.log("Неможливо \"зменшити\" статус");
+        }
+    };
+
+    const fetchOrderUpdateStatus = async () => {
+        var result = await orderAPI.updateOrderStatus(row.orderId, parseInt(newStatus));
+        return result;
+    };
+
+    const handleSaveStatus = async () => {
+        const result = await fetchOrderUpdateStatus();
+        if (result.seccessfully === true) {
+            alert("Статус оновлено успішно!");
+            reloadOrdersData();
+        } else {
+            alert(result.message);
+        }
+    };
 
     return (
         <React.Fragment>
@@ -40,6 +72,24 @@ function Row(props) {
                 <TableCell>{row.receivingDate}</TableCell>
                 <TableCell>{row.issueDate}</TableCell>
                 <TableCell>{lookup[row.status]}</TableCell>
+                <TableCell>
+                    {showStatusSelect ? (
+                        <Select value={newStatus} onChange={handleStatusChange}>
+                            {availableStatuses.map((status) => (
+                                <MenuItem key={status} value={status}>
+                                    {lookup[status]}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    ) : (
+                        <>-</>
+                    )}
+                    {showSaveButton && (
+                        <IconButton onClick={handleSaveStatus} color="primary">
+                            <span className="material-icons md-dark">save</span>
+                        </IconButton>
+                    )}
+                </TableCell>
                 <TableCell>{row.workTypeId}</TableCell>
                 <TableCell>{row.workTypeName}</TableCell>
                 <TableCell>{row.workTypeCost}</TableCell>
@@ -120,6 +170,7 @@ Row.propTypes = {
             })
         ).isRequired,
     }).isRequired,
+    reloadOrdersData: PropTypes.func.isRequired,
 };
 
 const Order = (props) => {
@@ -236,6 +287,10 @@ const Order = (props) => {
 
     const handleChangeSort = (event) => {
         setSort(event.target.value);
+    };
+
+    const reloadOrdersData = () => {
+        fetchOrdersData();
     };
 
     const ExportFile = async () => {
@@ -386,6 +441,7 @@ const Order = (props) => {
                             <TableCell>Отримано</TableCell>
                             <TableCell>Видано</TableCell>
                             <TableCell>Статус</TableCell>
+                            <TableCell>Змінити статус</TableCell>
                             <TableCell>Id послуги</TableCell>
                             <TableCell>Назва послуги</TableCell>
                             <TableCell>Вартість послуги</TableCell>
@@ -400,7 +456,7 @@ const Order = (props) => {
                     </TableHead>
                     <TableBody>
                         {data.map((row) => (
-                            <Row key={row.orderId} row={row} />
+                            <Row key={row.orderId} row={row} reloadOrdersData={reloadOrdersData} />
                         ))}
                     </TableBody>
                 </Table>
