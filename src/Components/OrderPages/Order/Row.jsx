@@ -64,8 +64,8 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.orderId}
                 </TableCell>
-                <TableCell>{row.receivingDate}</TableCell>
-                <TableCell>{row.issueDate}</TableCell>
+                <TableCell>{new Date(row.receivingDate).toLocaleDateString()}</TableCell>
+                <TableCell>{new Date(row.issueDate).toLocaleDateString()}</TableCell>
                 <TableCell>{lookup[row.status]}</TableCell>
                 <TableCell>
                     {showStatusSelect ? (
@@ -96,12 +96,16 @@ function Row(props) {
                 <TableCell>{row.clientLastName}</TableCell>
                 <TableCell>{row.price}</TableCell>
                 <TableCell>
-                    <IconButton
-                        onClick={() => handleEditRow(row.orderId)}
-                        color="inherit"
-                    >
-                        <span className="material-icons md-dark">edit</span>
-                    </IconButton>
+                    {showStatusSelect ? (
+                        <IconButton
+                            onClick={() => handleEditRow(row.orderId)}
+                            color="inherit"
+                        >
+                            <span className="material-icons md-dark">edit</span>
+                        </IconButton>
+                    ) : (
+                        <></>
+                    )}
                 </TableCell>
             </TableRow>
             <TableRow>

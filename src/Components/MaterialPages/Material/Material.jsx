@@ -259,7 +259,7 @@ const Material = (props) => {
             <div className={s.buttons}>
                 <div>
                     <Button variant="contained" color="primary" onClick={ExportFile}>
-                        Імпортувати
+                        Експортувати
                     </Button>
                     <Button
                         variant="contained"

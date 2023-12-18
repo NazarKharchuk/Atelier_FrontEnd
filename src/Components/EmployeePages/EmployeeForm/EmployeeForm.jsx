@@ -186,7 +186,7 @@ const EmploeeForm = (props) => {
                             </div>
                         </div>
                         <div className={s.buttons}>
-                            <NavLink to="/clients">
+                            <NavLink to="/employees">
                                 <Button variant="contained" className={s.button} disabled={props.isSubmitting}>
                                     Скасувати
                                 </Button>

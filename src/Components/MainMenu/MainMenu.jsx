@@ -35,7 +35,7 @@ const MainMenu = (props) => {
         <>
           <NavLink to="/employees" className={s.menuLink}>
             <Button variant="contained" color="primary" size="large" className={s.menuButton}>
-              Співробітники
+              Працівники
             </Button>
           </NavLink>
 

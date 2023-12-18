@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import s from "./OrderForm.module.css";
 import { MenuItem, FormControl, Select, Button, TextField, Typography, InputLabel, Table, TableBody } from "@mui/material";
 import { TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from "@mui/material";
@@ -17,7 +17,7 @@ const OrderForm = (props) => {
     const [newMaterialCost, setNewMaterialCost] = useState("");
     const [newMaterialCount, setNewMaterialCount] = useState("");
     const [newMaterialMessage, setNewMaterialMessage] = useState("");
-    const [newOrderMessage, setNewOrderMessage] = useState("");
+    const [newOrderMessage] = useState("");
     const [materialLoading, setmaterialLoading] = useState(false);
     const [orderLoading, setOrderLoading] = useState(false);
 
